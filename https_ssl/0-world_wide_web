@@ -18,3 +18,4 @@ if [ -z "$subdomain" ]; then
 else
     get_record "$subdomain"
 fi
+

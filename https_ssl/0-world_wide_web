@@ -5,11 +5,9 @@ domain=$1
 subdomain=$2
 
 get_record() {
-    result=$(dig "$1.$domain" +noall +answer)
-    record_type=$(echo "$result" | awk '{print $4}')
-    destination=$(echo "$result" | awk '{print $5}')
-
-    echo "The subdomain $1 is a $record_type record and points to $destination"
+    record=$(dig "$1.$domain" +short | awk 'NR==1')
+    type=$(dig "$1.$domain" | awk '/IN[[:space:]]+A/ {print $4; exit}')
+    echo "The subdomain $1 is a $type record and points to $record"
 }
 
 if [ -z "$subdomain" ]; then
@@ -20,4 +18,3 @@ if [ -z "$subdomain" ]; then
 else
     get_record "$subdomain"
 fi
-

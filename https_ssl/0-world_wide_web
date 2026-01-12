@@ -8,7 +8,7 @@ subdomain=$2
 get_record() {
     record=$(dig "$1.$domain" +short | awk 'NR==1')
     type=$(dig "$1.$domain" | awk '/IN[[:space:]]+A/ {print $4; exit}')
-    echo "The subdomain $1 is a $type record and points to $record"
+    echo "The subdomain $1 is a $4 record and points to $record"
 }
 
 if [ -z "$subdomain" ]; then
